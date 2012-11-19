@@ -1,0 +1,43 @@
+require 'capybara'
+require 'capybara-webkit'
+require 'capybara/dsl'
+require 'open-uri'
+require 'nokogiri'
+
+#doc = Nokogiri::HTML(open("http://www.3plea.com/memberLogin.asp"))
+#arr = Array.new
+
+#doc.xpath('//tr/td').each do |node|
+
+#doc.xpath('//input/@name').each do |node|
+#   unless node.nil?
+#     arr << node
+#     puts node
+#   end
+#end
+
+#Capybara.default_driver = :webkit
+Capybara.current_driver = :selenium
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+Capybara.app_host = 'http://www.3plea.com/memberLogin.asp'
+#Capybara.app_host = 'https://manage.dnssocial.com/users/sign_in'
+
+
+include Capybara::DSL
+visit('')
+      #login = find(:xpath, '//ul/li').text
+      #find(:css, "input[id$='donation_pledge_hundreds']").set("10")
+      #page.find('li', :text => 'Quox').click_link('Delete')
+      #input[@type="hidden" and @name="val" and position() = 1]/@value
+      #find(:xpath, "//INPUT[0]").set("adnan1")
+      #find(:xpath, "//INPUT[1]").set("330033")
+ 
+      #fill_in "#{arr[0]}", :with => 'adnan1'
+      #fill_in "#{arr[1]}", :with => '330033'
+      #fill_in "key", :with => '31313'
+      #click_link ' Login Now '
+      #click_button " Login Now "
+    #submit_form "Form1"
+   find(:xpath, "//input[@type='submit']").native.send_keys(:return)
