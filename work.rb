@@ -52,8 +52,10 @@ until @acc.empty?
 	#@t.join
 end
 
+#set finish parameter to db e.g: set to true?
+
 #send email
-MyMailer.send_mail("amir@localhost.my, amirharis@gmail.com, zapawie@gmail.com", "3Plea report for 5 clicks").deliver
+#MyMailer.send_mail("amir@localhost.my, amirharis@gmail.com, zapawie@gmail.com", "3Plea report for 5 clicks").deliver
 
 
 
