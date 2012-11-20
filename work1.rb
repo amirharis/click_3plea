@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require "#{File.dirname(__FILE__)}/robot_lib"
 include ROBOT
 
@@ -38,6 +39,7 @@ loop do
 						if @db.total_clicks < 10
 							@u = Utils.new(u, "660066", 10)
 							@u.process
+							
 							#@t = Thread.new{ u.process }
 						else
 							@acc.delete(u)
@@ -45,6 +47,7 @@ loop do
 					rescue Exception => e  
 						puts e.message
 						abort(e.message)
+						puts @u.get_chrome_id
 						@u.abort
 						retry
 					end

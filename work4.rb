@@ -5,8 +5,8 @@ include ROBOT
 
 loop do
 
-	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "3").first
-	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "3") if @process.nil?
+	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "4").first
+	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "4") if @process.nil?
 
 
 	unless @process.state
@@ -24,9 +24,6 @@ loop do
 			#accounts[2] = ["adnan15", "adnan16", "adnan17"]
 			#accounts[3] = ["adnan18", "adnan19", "adnan20", "adnan21"]
 
-
-			@process = Process.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "4").first
-			@process = Process.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "4") if @process.nil?
 
 			until @acc.empty?
 				puts @acc.join(" ")

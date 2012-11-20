@@ -145,13 +145,21 @@ module ROBOT
 			@driver.quit
 		end
 
+		def get_chrome_id
+			bridge = @driver.instance_variable_get(:@bridge)
+			launcher = bridge.instance_variable_get(:@launcher)
+			binary = launcher.instance_variable_get(:@binary)
+			process = binary.instance_variable_get(:@process)
+			process.pid
+		end
+
 		def process
 			#login using chrome
 			begin
 				#Database
 				@db = Click.where(:click_date => Time.now.strftime("%Y-%m-%d"), :account => @username).first
 
-				
+				#puts self.get_chrome_id
 				@driver.navigate.to "http://www.3plea.com/memberLogin.asp"
 				element = @driver.find_elements(:tag_name, "input")[0]
 				element.send_keys @username
@@ -161,6 +169,8 @@ module ROBOT
 				element = @driver.find_elements(:tag_name, "input")[2]
 				element.send_keys "#{key.split(".").join("")}"
 				@driver.find_elements(:tag_name, "input")[3].click
+
+				
 
 				abort if @driver.current_url == "http://www.3plea.com/noService.asp"
 				
@@ -236,6 +246,7 @@ module ROBOT
 
 				
 			rescue Exception => e  
+				
 				@driver.quit
 				puts e.message
 				retry

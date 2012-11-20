@@ -35,7 +35,7 @@ GEM
     builder (3.0.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
-    daemon (1.1.0)
+    daemons (1.1.9)
     erubis (2.7.0)
     ffi (1.1.5)
     god (0.13.1)
@@ -89,7 +89,7 @@ DEPENDENCIES
   activerecord
   activesupport
   aws-sdk
-  daemon
+  daemons
   god
   mysql2
   selenium-webdriver
