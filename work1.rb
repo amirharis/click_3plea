@@ -15,7 +15,8 @@ loop do
 
 			accounts = Array.new
 			#@acc = []
-			@acc = ["AD666", "adnan1", "adnan8", "adnan9", "adnan10", "adnan14", "adnan15", "adnan16", "adnan17", "adnan18", "adnan19", "adnan20", "adnan21"]
+			@acc = ["AD666", "adnan1", "adnan7", "adnan8", "adnan9", "adnan10", "adnan14", "adnan15", "adnan16", "adnan17", "adnan18", "adnan19", "adnan20", "adnan21"]
+			#@acc = ["adnan16", "adnan17", "adnan18", "adnan19", "adnan20", "adnan21"]
 			#@acc = ["adnan2","adnan3","adnan4","adnan5","adnan6","adnan7","adnan11","adnan12","adnan13","adnan22","adnan23",
 			#"adnan24","adnan25","adnan26","adnan27","adnan28","adnan29","adnan30","adnan31","adnan32","adnan33", "adnan34", "adnan35", "adnan36", "adnan37", "adnan38", "adnan39", "adnan40", "adnan41", "adnan42","adnan43",
 			#"adnan44", "adnan45", "adnan46", "adnan47", "adnan48", "adnan49"]
@@ -39,7 +40,7 @@ loop do
 						if @db.total_clicks < 10
 							@u = Utils.new(u, "660066", 10)
 							@u.process
-							
+
 							#@t = Thread.new{ u.process }
 						else
 							@acc.delete(u)

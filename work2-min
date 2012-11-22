@@ -7,7 +7,7 @@ loop do
 
 	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "2").first
 	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "2") if @process.nil?
-	puts "asdas"
+
 
 	unless @process.state
 		if Time.now.strftime("%H").to_i >= 1
@@ -16,7 +16,7 @@ loop do
 			@acc = []
 			#@acc = ["AD666", "adnan1", "adnan8", "adnan9", "adnan10", "adnan14", "adnan15", 
 			#	   "adnan16", "adnan17", "adnan18", "adnan19", "adnan20", "adnan21"]
-			@acc = ["adnan2","adnan3","adnan4","adnan5","adnan6","adnan11","adnan12","adnan13","adnan22","adnan23", "adnan24","adnan25","adnan26"]
+			@acc = ["adnan13","adnan22","adnan23", "adnan24","adnan25","adnan26"]
 
 			#accounts[0] = ["AD666", "adnan1", "adnan8"]
 			#accounts[1] = ["adnan9", "adnan10", "adnan14"]

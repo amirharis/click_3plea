@@ -47,11 +47,12 @@ module ROBOT
 	end
 
 	class Utils
+		$page = 1
+
 		def initialize(username, password, clicks)
 	        @username = username
 	        @password = password
 	        @clicks = clicks
-	        @page = 1
 	        @driver = Selenium::WebDriver.for :chrome
 	    end
 
@@ -79,39 +80,49 @@ module ROBOT
 		end 
 
 		def inc x = 1
-    		@page += x
+    		$page += x
   		end
 
   		def reset
-    		@page = 1
+    		$page = 1
   		end
 
 
 		def find_links(x=1, *adv_ids)
 
-			if @page == 1
-				self.inc
+			if $page == 1
+				$page = $page + 1
 				@driver.navigate.to "http://www.3plea.com/member/cads.asp"
 			else
-				#@navigate = false
+				#if $page > 2
+				$page = $page + 1 unless $page == 2
+				#end
+
+				@navigate_first_page = false
 				@driver.navigate.to "http://www.3plea.com/member/cads.asp"
 				next_page = @driver.find_elements(:tag_name, "a")
 				next_page.each do |link| 
 			  	#puts link.attribute("href") 
 			  	    puts link.attribute("href") 
-			  	    puts @page
-				  	#if link.attribute("href") =~ /cads.asp?page=#{@page.succ}&cx=0/
-				  	if link.attribute("href") == "http://www.3plea.com/member/cads.asp?page=#{@page}&cx=0"
+			  	    puts $page
+				  	#if link.attribute("href") =~ /cads.asp?page=#{$page.succ}&cx=0/
+				  	#puts "http://www.3plea.com/member/cads.asp?page=#{$page}&cx=0"
+				  	if link.attribute("href") == "http://www.3plea.com/member/cads.asp?page=#{$page}&cx=0"
 				  		puts "inside troll"
-				  		self.inc
-				  		@driver.navigate.to "http://www.3plea.com/member/cads.asp?page=#{@page-1}&cx=0"
-				  		#@navigate = false		
+				  		@driver.navigate.to "http://www.3plea.com/member/cads.asp?page=#{$page}&cx=0"
+				  		#@navigate = false	
+				  		@navigate_first_page = false	
 				  		break
 				  	else
-				  		self.reset
-				  		self.inc
+				  		@navigate_first_page = true
+				  		#self.inc
 				  		#@navigate = true
 				  	end
+				end
+
+				if @navigate_first_page 
+				#	@driver.navigate.to "http://www.3plea.com/member/cads.asp"
+					$page = 1
 				end
 				#If something went wrong
 				#if @navigate 
@@ -159,7 +170,7 @@ module ROBOT
 				#Database
 				@db = Click.where(:click_date => Time.now.strftime("%Y-%m-%d"), :account => @username).first
 
-				#puts self.get_chrome_id
+				
 				@driver.navigate.to "http://www.3plea.com/memberLogin.asp"
 				element = @driver.find_elements(:tag_name, "input")[0]
 				element.send_keys @username
@@ -169,8 +180,6 @@ module ROBOT
 				element = @driver.find_elements(:tag_name, "input")[2]
 				element.send_keys "#{key.split(".").join("")}"
 				@driver.find_elements(:tag_name, "input")[3].click
-
-				
 
 				abort if @driver.current_url == "http://www.3plea.com/noService.asp"
 				
@@ -182,6 +191,7 @@ module ROBOT
 
 				if wa == 10
 					@db.update_attributes(:total_clicks => wa)
+					$page = 1
 					@driver.quit
 				else
 					@db.update_attributes(:total_clicks => wa)
@@ -193,7 +203,7 @@ module ROBOT
 
 					while wb < @clicks
 						
-						puts "Page: #{@page}"
+						puts "Page: #{$page}"
 						adv_links = find_links(1, *adv_ids)
 						adv_links.each do |adv_link|
 
@@ -207,7 +217,8 @@ module ROBOT
 						  	#e = @driver.find_elements(:tag_name, "a")[19].attribute("href") if @driver.find_elements(:tag_name, "a")[19]
 						  	all_links = @driver.find_elements(:tag_name, "a")
 						  	all_links.each_with_index do |all_link, index|
-							  	if all_link.attribute("href") =~ /clickadv.asp/
+							  	#if all_link.attribute("href") =~ /clickadv.asp/
+							  	if all_link.attribute("href") =~ /javascript:ClickAdv()/
 							  		#if wa < @clicks
 							 		puts "#{x} #{ all_link.attribute("href") }"
 							 		puts index
@@ -246,7 +257,6 @@ module ROBOT
 
 				
 			rescue Exception => e  
-				
 				@driver.quit
 				puts e.message
 				retry
