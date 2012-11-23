@@ -53,6 +53,10 @@ module ROBOT
 	        @username = username
 	        @password = password
 	        @clicks = clicks
+	        #profile = Selenium::WebDriver::Chrome::Profile.new
+			#profile['images.default_content_settings'] = 2
+			#profile['download.prompt_for_download'] = false
+			#profile['download.default_directory'] = "/path/to/dir"
 	        @driver = Selenium::WebDriver.for :chrome
 	    end
 

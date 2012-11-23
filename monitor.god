@@ -93,3 +93,63 @@ God.watch do |w|
   w.behavior(:clean_pid_file)
   generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
 end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/work5_ctl.rb"
+  w.name = "work5"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/work5.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/work6_ctl.rb"
+  w.name = "work6"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/work6.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/work7_ctl.rb"
+  w.name = "work7"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/work7.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/work8_ctl.rb"
+  w.name = "work8"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/work8.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end
