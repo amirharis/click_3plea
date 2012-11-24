@@ -1,56 +1,10 @@
  
  
-Click report for 2012-11-23
+Click report for 2012-11-24
 ===================================================
  
-1. adnan37		5 clicks		RM5
-2. adnan43		5 clicks		RM5
-3. adnan33		5 clicks		RM5
-4. adnan32		5 clicks		RM5
-5. adnan24		5 clicks		RM5
-6. adnan23		5 clicks		RM5
-7. adnan22		5 clicks		RM5
-8. adnan13		5 clicks		RM5
-9. adnan12		5 clicks		RM5
-10. adnan44		5 clicks		RM5
-11. adnan34		5 clicks		RM5
-12. adnan36		5 clicks		RM5
-13. adnan48		5 clicks		RM5
-14. adnan47		5 clicks		RM5
-15. adnan46		5 clicks		RM5
-16. adnan45		5 clicks		RM5
-17. adnan26		5 clicks		RM5
-18. adnan35		5 clicks		RM5
-19. adnan25		5 clicks		RM5
-20. adnan42		5 clicks		RM5
-21. adnan31		5 clicks		RM5
-22. adnan28		5 clicks		RM5
-23. adnan38		5 clicks		RM5
-24. adnan49		5 clicks		RM5
-25. adnan4		5 clicks		RM5
-26. adnan27		5 clicks		RM5
-27. adnan3		5 clicks		RM5
-28. adnan2		5 clicks		RM5
-29. adnan29		5 clicks		RM5
-30. adnan39		5 clicks		RM5
-31. adnan5		5 clicks		RM5
-32. adnan40		5 clicks		RM5
-33. adnan11		5 clicks		RM5
-34. adnan41		5 clicks		RM5
-35. adnan30		5 clicks		RM5
-36. adnan6		5 clicks		RM5
-37. adnan10		10 clicks		RM10
-38. adnan20		10 clicks		RM10
-39. adnan19		10 clicks		RM10
-40. adnan18		10 clicks		RM10
-41. adnan17		10 clicks		RM10
-42. AD666		10 clicks		RM10
-43. adnan7		10 clicks		RM10
-44. adnan1		10 clicks		RM10
-45. adnan16		10 clicks		RM10
-46. adnan14		10 clicks		RM10
-47. adnan15		10 clicks		RM10
-48. adnan9		10 clicks		RM10
-49. adnan8		10 clicks		RM10
-50. adnan21		10 clicks		RM10
-Total: RM 320
+1. adnan27		0 clicks		RM0		{c.updated_at}
+2. adnan38		0 clicks		RM0		{c.updated_at}
+3. adnan2		0 clicks		RM0		{c.updated_at}
+4. adnan51		0 clicks		RM0		{c.updated_at}
+Total: RM 0

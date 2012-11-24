@@ -153,3 +153,33 @@ God.watch do |w|
   w.behavior(:clean_pid_file)
   generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
 end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/clicks_email_ctl.rb"
+  w.name = "clicks email"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/clicks_email.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end
+
+God.watch do |w|
+  script = "#{APPS_DIR}/restart_daemon.rb"
+  w.name = "restart_daemon"
+  w.group = "daemon"
+  w.interval = 60.seconds
+  w.start = "cd #{APPS_DIR} && #{script} start"
+  w.restart = "cd #{APPS_DIR} &&  #{script} restart"
+  w.stop = "cd #{APPS_DIR} &&  #{script} stop"
+  w.start_grace = 20.seconds
+  w.restart_grace = 20.seconds
+  w.pid_file = "#{APPS_DIR}/restart_daemon.pid"
+  w.behavior(:clean_pid_file)
+  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 512.megabytes)
+end

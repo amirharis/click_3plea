@@ -6,8 +6,8 @@ include ROBOT
 
 loop do
 
-	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "1").first
-	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "1") if @process.nil?
+	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "5").first
+	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "5") if @process.nil?
 
 	
 	unless @process.state
@@ -16,7 +16,6 @@ loop do
 			accounts = Array.new
 			#@acc = []
 			@acc = ["adnan50", "adnan54", "adnan55", "adnan56", "adnan57", "adnan58", "adnan59", "adnan60", "adnan61", "adnan62", "adnan63", "adnan64", "adnan100"]
-			adnan50
 
 			#@acc = ["adnan16", "adnan17", "adnan18", "adnan19", "adnan20", "adnan21"]
 			#@acc = ["adnan2","adnan3","adnan4","adnan5","adnan6","adnan7","adnan11","adnan12","adnan13","adnan22","adnan23",

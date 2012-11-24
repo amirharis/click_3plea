@@ -5,8 +5,8 @@ include ROBOT
 
 loop do
 
-	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "2").first
-	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "2") if @process.nil?
+	@process = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "6").first
+	@process = State.create(:click_date => Time.now.strftime("%Y-%m-%d"), :process => "6") if @process.nil?
 	puts "asdas"
 
 	unless @process.state

@@ -18,6 +18,12 @@ module ROBOT
 	class State < ActiveRecord::Base  
 	end
 
+	class Email < ActiveRecord::Base  
+	end
+
+	class Transfer < ActiveRecord::Base  
+	end
+
 	class MyMailer < ActionMailer::Base
 			
 		default :from => "poc@dnscell.com"
@@ -49,7 +55,7 @@ module ROBOT
 	class Utils
 		$page = 1
 
-		def initialize(username, password, clicks)
+		def initialize(username, password="660066", clicks = 5)
 	        @username = username
 	        @password = password
 	        @clicks = clicks
@@ -99,7 +105,7 @@ module ROBOT
 				@driver.navigate.to "http://www.3plea.com/member/cads.asp"
 			else
 				#if $page > 2
-				$page = $page + 1 unless $page == 2
+				$page = ($page + 1) unless $page == 2
 				#end
 
 				@navigate_first_page = false
@@ -168,25 +174,94 @@ module ROBOT
 			process.pid
 		end
 
+		def login
+			@driver.navigate.to "http://www.3plea.com/memberLogin.asp"
+			element = @driver.find_elements(:tag_name, "input")[0]
+			element.send_keys @username
+			element = @driver.find_elements(:tag_name, "input")[1]
+			element.send_keys @password
+			key = @driver.find_elements(:tag_name, "font")[6].text
+			element = @driver.find_elements(:tag_name, "input")[2]
+			element.send_keys "#{key.split(".").join("")}"
+			@driver.find_elements(:tag_name, "input")[3].click
+
+			abort if @driver.current_url == "http://www.3plea.com/noService.asp"
+		end
+
+		def transfer
+			login()
+			@driver.navigate.to "http://www.3plea.com/member/wTxForm.asp?w=1"
+			all_links = @driver.find_elements(:tag_name, "td")
+			all_links.each_with_index do |a, i|
+				#puts "#{i}: #{a.text}"
+				if a.text =~ /Balance/
+					@index = i 
+				end
+			end
+
+			transfer_amount = @driver.find_elements(:tag_name, "td")[@index+1].text
+			#transfer_amount = 1
+			balance = transfer_amount - transfer_amount.to_i
+
+			#all_inputs = @driver.find_elements(:tag_name, "input")
+			#all_inputs.each_with_index do |input, i|
+			##	puts "#{i} #{input.attribute("name")}"
+			#end
+			unless transfer_amount.to_i == 0
+				element = @driver.find_elements(:tag_name, "input")[1]
+				element.send_keys @username
+				element = @driver.find_elements(:tag_name, "input")[2]
+				element.send_keys transfer_amount.to_i
+				element = @driver.find_elements(:tag_name, "input")[3]
+				element.send_keys @password
+				@driver.find_elements(:tag_name, "input")[5].click
+
+				#next page click
+				@driver.find_elements(:tag_name, "input")[4].click
+
+				#success
+				a = @driver.find_elements(:tag_name, "span")
+				a.each_with_index do |aa, i|
+					puts "#{i} #{aa.text}"
+				end
+
+				if @driver.find_elements(:tag_name, "span")[1].text =~ /Successful/
+					t = Transfer.where(:transfer_date => Time.now.strftime("%Y-%m-%d"), :account => @username).first
+					t = Transfer.create(:transfer_date => Time.now.strftime("%Y-%m-%d"), :account => @username) if t.nil?
+					t.update_attributes(:amount => transfer_amount, :balance => balance, :status => true )
+				else
+					puts "unsuccessful"
+				end
+				#<span class="Headline">eWallet Transferred is Successful.</span>
+			else
+				#error
+				@driver.quit
+			end
+
+			#<input type="TEXT" name="LoginID" value="" size="22" maxlength="22" autocomplete="off">
+			#<input type="TEXT" name="Amount" value="" size="22" maxlength="22" autocomplete="off">
+			#<input type="PASSWORD" name="Password" value="" size="22" maxlength="22" autocomplete="off">
+		end
+
+		def self.email_clicks
+			total_states = 8
+			today = Time.now.strftime("%Y-%m-%d")
+			count_state = State.where(:click_date => Time.now.strftime("%Y-%m-%d"), :state => true ).count
+			puts count_state
+			if count_state == total_states
+				true
+			else
+				false
+			end
+		end
+
 		def process
 			#login using chrome
 			begin
 				#Database
 				@db = Click.where(:click_date => Time.now.strftime("%Y-%m-%d"), :account => @username).first
 
-				
-				@driver.navigate.to "http://www.3plea.com/memberLogin.asp"
-				element = @driver.find_elements(:tag_name, "input")[0]
-				element.send_keys @username
-				element = @driver.find_elements(:tag_name, "input")[1]
-				element.send_keys @password
-				key = @driver.find_elements(:tag_name, "font")[6].text
-				element = @driver.find_elements(:tag_name, "input")[2]
-				element.send_keys "#{key.split(".").join("")}"
-				@driver.find_elements(:tag_name, "input")[3].click
-
-				abort if @driver.current_url == "http://www.3plea.com/noService.asp"
-				
+				login()				
 				#abort if @driver.current_url == "http://www.3plea.com/member/home.asp"
 				
 				page = 0
