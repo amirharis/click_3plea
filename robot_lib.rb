@@ -35,7 +35,7 @@ module ROBOT
 		      :domain         => "dnscell.com",
 		      :authentication => "plain",
 		      :user_name      => "poc@dnscell.com",
-		      :password       => "localhost2012",
+		      :password       => "localhost****",
 		      :enable_starttls_auto => true
 		    }
 		    ActionMailer::Base.delivery_method = :smtp
